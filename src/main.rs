@@ -1,4 +1,5 @@
 mod day01;
+mod day02;
 
 use std::{fmt::Display, time::Instant};
 
@@ -7,6 +8,7 @@ fn main() {
 
     time(1, 1, day01::part1);
     time(1, 2, day01::part2);
+    time(2, 1, day02::part1);
 
     let end = Instant::now();
     println!("Total Elapsed: {:?}", end.duration_since(start));
@@ -22,7 +24,7 @@ where
     let end = Instant::now();
 
     println!(
-        "Day {:>2} Part {}: | Answer {:<5} | Elapsed: {:?}",
+        "Day {:02} Part {}: | Answer {:<5} | Elapsed: {:?}",
         day,
         part,
         result,
