@@ -19,11 +19,15 @@ fn parse_games(input: &str) -> Vec<Game> {
 
     for line in game_lines {
         if let Some((game_info, rounds_info)) = line.split_once(':') {
-            let game_index: usize = game_info.trim().strip_prefix("Game ").and_then(|s| s.parse::<usize>().ok()).unwrap_or(0);
+            let game_index: usize = game_info
+                .trim()
+                .strip_prefix("Game ")
+                .and_then(|s| s.parse::<usize>().ok())
+                .unwrap_or(0);
             let rounds_data: Vec<&str> = rounds_info.trim().split(';').collect::<Vec<&str>>();
-            
+
             let mut rounds: Vec<Round> = Vec::new();
-            let mut is_possible = true;  // Assume it's possible until proven otherwise
+            let mut is_possible = true; // Assume it's possible until proven otherwise
 
             // Get the max number of each color, for this game
             let mut max_red: usize = 0;
@@ -46,10 +50,9 @@ fn parse_games(input: &str) -> Vec<Game> {
                             "red" => n_red += count,
                             "green" => n_green += count,
                             "blue" => n_blue += count,
-                            _ => {},
+                            _ => {}
                         }
                     }
-                
                 }
 
                 // Check if this round exceeds any of the color limits
@@ -82,11 +85,11 @@ fn parse_games(input: &str) -> Vec<Game> {
     games
 }
 
-
 pub fn part1() -> u32 {
     let games = parse_games(INPUT);
 
-    let sum_idx_possible_games: u32 = games.iter()
+    let sum_idx_possible_games: u32 = games
+        .iter()
         .filter(|game| game.is_possible)
         .map(|game| game.index as u32)
         .sum();
@@ -97,9 +100,7 @@ pub fn part1() -> u32 {
 pub fn part2() -> u32 {
     let games = parse_games(INPUT);
 
-    let power: u32 = games.iter()
-        .map(|game| game.power as u32)
-        .sum();
+    let power: u32 = games.iter().map(|game| game.power as u32).sum();
 
     power
 }

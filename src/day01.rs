@@ -4,7 +4,8 @@ const INPUT: &str = include_str!("data/day01.txt");
 pub fn part1() -> u32 {
     INPUT
         .lines()
-        .filter_map(|line| { // Filter out lines that don't contain digits
+        .filter_map(|line| {
+            // Filter out lines that don't contain digits
             // Find the first and last digits in the line
             let first_digit = line.chars().find(|c| c.is_ascii_digit())?;
             let last_digit = line.chars().rev().find(|c| c.is_ascii_digit())?;
@@ -19,10 +20,9 @@ pub fn part1() -> u32 {
 
 pub fn part2() -> u32 {
     const DIGIT_WORDS: [&str; 10] = [
-        "zero", "one", "two", "three", "four",
-        "five", "six", "seven", "eight", "nine"
+        "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     ];
-    
+
     INPUT
         .lines()
         .map(|line| {
