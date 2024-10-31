@@ -9,6 +9,7 @@ fn main() {
     time(1, 1, day01::part1);
     time(1, 2, day01::part2);
     time(2, 1, day02::part1);
+    time(2, 2, day02::part2);
 
     let end = Instant::now();
     println!("Total Elapsed: {:?}", end.duration_since(start));

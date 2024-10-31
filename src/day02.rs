@@ -10,6 +10,7 @@ struct Game {
     index: usize,
     rounds: Vec<Round>,
     is_possible: bool,
+    power: usize,
 }
 
 fn parse_games(input: &str) -> Vec<Game> {
@@ -24,6 +25,11 @@ fn parse_games(input: &str) -> Vec<Game> {
             let mut rounds: Vec<Round> = Vec::new();
             let mut is_possible = true;  // Assume it's possible until proven otherwise
 
+            // Get the max number of each color, for this game
+            let mut max_red: usize = 0;
+            let mut max_green: usize = 0;
+            let mut max_blue: usize = 0;
+
             for round_segment in rounds_data {
                 let mut n_red: usize = 0;
                 let mut n_green: usize = 0;
@@ -31,7 +37,7 @@ fn parse_games(input: &str) -> Vec<Game> {
 
                 let items: Vec<&str> = round_segment.split(',').collect::<Vec<&str>>();
                 for item in items {
-                    let parts: Vec<&str> = item.trim().split_whitespace().collect::<Vec<&str>>();
+                    let parts: Vec<&str> = item.split_whitespace().collect::<Vec<&str>>();
                     if parts.len() == 2 {
                         let count: usize = parts[0].parse().unwrap_or(0);
                         let color = parts[1].to_lowercase();
@@ -43,13 +49,18 @@ fn parse_games(input: &str) -> Vec<Game> {
                             _ => {},
                         }
                     }
+                
                 }
 
                 // Check if this round exceeds any of the color limits
                 if n_red > 12 || n_green > 13 || n_blue > 14 {
                     is_possible = false;
-                    break // No need to continue checking the rest of the round_segments
                 }
+
+                // Update the max number of each color
+                max_red = max_red.max(n_red);
+                max_blue = max_blue.max(n_blue);
+                max_green = max_green.max(n_green);
 
                 rounds.push(Round {
                     n_red,
@@ -58,10 +69,13 @@ fn parse_games(input: &str) -> Vec<Game> {
                 });
             }
 
+            let power = max_red * max_green * max_blue;
+
             games.push(Game {
                 index: game_index,
-                rounds: rounds,
-                is_possible: is_possible,
+                rounds,
+                is_possible,
+                power,
             });
         }
     }
@@ -78,4 +92,14 @@ pub fn part1() -> u32 {
         .sum();
 
     sum_idx_possible_games
+}
+
+pub fn part2() -> u32 {
+    let games = parse_games(INPUT);
+
+    let power: u32 = games.iter()
+        .map(|game| game.power as u32)
+        .sum();
+
+    power
 }

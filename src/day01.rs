@@ -6,8 +6,8 @@ pub fn part1() -> u32 {
         .lines()
         .filter_map(|line| { // Filter out lines that don't contain digits
             // Find the first and last digits in the line
-            let first_digit = line.chars().find(|c| c.is_digit(10))?;
-            let last_digit = line.chars().rev().find(|c| c.is_digit(10))?;
+            let first_digit = line.chars().find(|c| c.is_ascii_digit())?;
+            let last_digit = line.chars().rev().find(|c| c.is_ascii_digit())?;
 
             // Convert and concatenate the digits if found
             let first_value = first_digit.to_digit(10)?;
@@ -39,7 +39,7 @@ fn find_all_digits(line: &str, digit_words: &[&str]) -> Vec<u32> {
     let mut i = 0;
 
     while i < chars.len() {
-        if chars[i].is_digit(10) {
+        if chars[i].is_ascii_digit() {
             // If the character is a numeric digit, add it to the list
             if let Some(digit) = chars[i].to_digit(10) {
                 digits.push(digit);
