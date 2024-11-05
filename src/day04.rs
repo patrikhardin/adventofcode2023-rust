@@ -2,7 +2,6 @@ use std::collections::HashMap;
 
 const INPUT: &str = include_str!("data/day04.txt");
 
-#[derive(Clone)]
 struct Card {
     card_number: u32,
     matched_numbers: Vec<u32>,
@@ -73,7 +72,7 @@ pub fn part2() -> u32 {
 
     for card in cards {
         let num_matches = card.matched_numbers.len();
-        let key = card.card_number as u32;
+        let key = card.card_number;
 
         // Initialize the count for the current card if not present
         m.entry(key).or_insert(1);

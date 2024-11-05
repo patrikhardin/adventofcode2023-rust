@@ -1,9 +1,6 @@
 const INPUT: &str = include_str!("data/day03.txt");
 
 struct Part {
-    x: usize,
-    y: usize,
-    len: usize,
     part_number: u32,
     adjacent_to_symbol: bool,
     gear_coordinates: Option<(usize, usize)>,
@@ -80,9 +77,6 @@ fn parse_schematic(schematic: Vec<Vec<char>>) -> (Vec<Part>, Vec<Gear>) {
 
                 // construct the part
                 let part = Part {
-                    x,
-                    y,
-                    len,
                     part_number: schematic[y][x..x + len]
                         .iter()
                         .collect::<String>()

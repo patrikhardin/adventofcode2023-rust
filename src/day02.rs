@@ -1,11 +1,13 @@
 const INPUT: &str = include_str!("data/day02.txt");
 
+#[allow(dead_code)]
 struct Round {
     n_red: usize,
     n_green: usize,
     n_blue: usize,
 }
 
+#[allow(dead_code)]
 struct Game {
     index: usize,
     rounds: Vec<Round>,
